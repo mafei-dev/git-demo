@@ -1,4 +1,4 @@
-FROM openjdk:8 as build-user
+FROM openjdk:8 as build-server
 WORKDIR /app
 COPY mvnw .
 COPY .mvn .mvn
@@ -18,9 +18,9 @@ FROM openjdk:8-jre-alpine
 ARG DEPENDENCY=/app/target/dependency
 
 # Copy project dependencies from the build stage
-COPY --from=build-user ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build-user ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build-user ${DEPENDENCY}/BOOT-INF/classes /app
+COPY --from=build-server ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY --from=build-server ${DEPENDENCY}/META-INF /app/META-INF
+COPY --from=build-server ${DEPENDENCY}/BOOT-INF/classes /app
 
 ENTRYPOINT ["java","-cp","app:app/lib/*","com.server.SaleWithMafeiSpringMicroServiceUserServiceApplication"]
 EXPOSE 8082
