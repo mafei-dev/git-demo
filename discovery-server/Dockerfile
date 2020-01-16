@@ -23,4 +23,4 @@ COPY --from=build-server ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build-server ${DEPENDENCY}/BOOT-INF/classes /app
 
 ENTRYPOINT ["java","-cp","app:app/lib/*","com.server.DiscoveryServerApplication"]
-EXPOSE 8082
+EXPOSE 8010
