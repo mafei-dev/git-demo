@@ -22,5 +22,5 @@ COPY --from=build-user ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build-user ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build-user ${DEPENDENCY}/BOOT-INF/classes /app
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.server.SaleWithMafeiSpringMicroServiceUserServiceApplication"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","com.user.UserServiceApplication"]
 EXPOSE 8082
