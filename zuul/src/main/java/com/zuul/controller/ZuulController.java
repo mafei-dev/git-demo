@@ -1,4 +1,4 @@
-package com.user.controller;
+package com.zuul.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
-@RequestMapping("/user")
-public class UserController {
-
+//@RestController
+//@RequestMapping("/zuul")
+public class ZuulController {
     @Autowired
     private HttpServletRequest request;
 
