@@ -58,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**")
                 .hasIpAddress(this.environment.getProperty("gateway.ip"));*/
         http.authorizeRequests()
-                .antMatchers("/user/**").permitAll();
+                .antMatchers("/user/**", "/info").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
 
         http.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);

@@ -23,20 +23,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/user")
 @CrossOrigin
 @Log4j2
 public class UserController {
-
-    @Autowired
-    private HttpServletRequest request;
-
-    @GetMapping("/info")
-    public ResponseEntity<?> index() {
-        return new ResponseEntity<>(request.getLocalPort(), HttpStatus.OK);
-    }
 
 
     @Autowired
