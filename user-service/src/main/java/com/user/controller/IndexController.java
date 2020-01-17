@@ -1,6 +1,7 @@
 package com.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ public class IndexController {
     @Autowired
     private HttpServletRequest request;
 
+    @Value("${spring.cloud.config.test-value}")
+    public String testMessage;
+
     @GetMapping("/info")
     public ResponseEntity<?> index() {
         HashMap<Object, Object> serverData = new HashMap<>();
@@ -22,6 +26,7 @@ public class IndexController {
         serverData.put("RemoteHost", request.getRemoteHost());
         serverData.put("LocalAddr", request.getLocalAddr());
         serverData.put("LocalPort", request.getLocalPort());
+        serverData.put("spring.cloud.config.test-value", testMessage);
         return new ResponseEntity<>(serverData, HttpStatus.OK);
     }
 
