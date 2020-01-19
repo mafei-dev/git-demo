@@ -5,6 +5,7 @@ import com.user.security.filter.JwtRequestFilter;
 import com.user.service.impl.JWTUserDetailsService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -50,6 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         log.debug("SecurityConfig.configure");
@@ -59,6 +63,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasIpAddress(this.environment.getProperty("gateway.ip"));*/
         http.authorizeRequests()
                 .antMatchers("/user/**", "/info").permitAll();
+        if (activeProfile.equals("dev")) {
+            http.authorizeRequests()
+                    .antMatchers("/actuator/**").permitAll();
+        }
         http.authorizeRequests().anyRequest().authenticated();
 
         http.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint);
